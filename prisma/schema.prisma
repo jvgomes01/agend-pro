@@ -1,0 +1,143 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuário (Dono do estabelecimento)
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  name          String
+  password      String
+  phone         String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  establishments Establishment[]
+}
+
+// Modelo de Estabelecimento (Barbearia, Salão, etc)
+model Establishment {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  address     String
+  phone       String
+  email       String?
+  type        String    // 'barbershop', 'salon', 'manicure', etc
+  openingHours Json?    // Horários de funcionamento
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  services    Service[]
+  professionals Professional[]
+  appointments Appointment[]
+  clients     Client[]
+}
+
+// Modelo de Profissional (Barbeiro, Cabeleireira, etc)
+model Professional {
+  id              String    @id @default(cuid())
+  name            String
+  email           String?
+  phone           String?
+  specialty       String?   // Especialidade
+  imageUrl        String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  
+  appointments    Appointment[]
+  availabilities  Availability[]
+}
+
+// Modelo de Serviço
+model Service {
+  id              String    @id @default(cuid())
+  name            String
+  description     String?
+  duration        Int       // Duração em minutos
+  price           Float
+  imageUrl        String?
+  active          Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  
+  appointments    Appointment[]
+}
+
+// Modelo de Cliente
+model Client {
+  id              String    @id @default(cuid())
+  name            String
+  email           String?
+  phone           String
+  notes           String?   // Observações sobre o cliente
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  
+  appointments    Appointment[]
+  
+  @@unique([phone, establishmentId])
+}
+
+// Modelo de Agendamento
+model Appointment {
+  id              String    @id @default(cuid())
+  date            DateTime
+  startTime       String    // Formato: "HH:mm"
+  endTime         String    // Formato: "HH:mm"
+  status          String    @default("scheduled") // scheduled, completed, cancelled, no_show
+  notes           String?
+  totalPrice      Float
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  clientId        String
+  client          Client    @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  
+  serviceId       String
+  service         Service   @relation(fields: [serviceId], references: [id])
+  
+  professionalId  String
+  professional    Professional @relation(fields: [professionalId], references: [id])
+  
+  establishmentId String
+  establishment   Establishment @relation(fields: [establishmentId], references: [id], onDelete: Cascade)
+  
+  @@index([date, professionalId])
+}
+
+// Modelo de Disponibilidade do Profissional
+model Availability {
+  id              String    @id @default(cuid())
+  dayOfWeek       Int       // 0-6 (Domingo a Sábado)
+  startTime       String    // Formato: "HH:mm"
+  endTime         String    // Formato: "HH:mm"
+  isAvailable     Boolean   @default(true)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  
+  professionalId  String
+  professional    Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  
+  @@unique([professionalId, dayOfWeek, startTime])
+}
