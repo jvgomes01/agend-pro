@@ -13,11 +13,18 @@ export default function Home() {
               <div className="w-8 h-8 bg-neutral-900 rounded-md flex items-center justify-center">
                 <Calendar className="w-5 h-5 text-white" />
               </div>
-              <span className="text-xl font-semibold text-neutral-900">AgendPro</span>
+              <span className="text-xl font-semibold text-neutral-900">
+                AgendPro
+              </span>
             </div>
             <div className="flex items-center gap-4">
               <Link href="/login">
-                <Button variant="ghost">Entrar</Button>
+                <Button
+                  className="border-2 border-gray-300  text-gray-400"
+                  variant="ghost"
+                >
+                  Entrar
+                </Button>
               </Link>
               <Link href="/cadastro">
                 <Button>Começar</Button>
@@ -45,27 +52,40 @@ export default function Home() {
               <Button size="lg">Começar gratuitamente</Button>
             </Link>
             <Link href="#recursos">
-              <Button variant="outline" size="lg">Conhecer recursos</Button>
+              <Button
+                className="border-2 border-gray-300  text-gray-400"
+                variant="outline"
+                size="lg"
+              >
+                Conhecer recursos
+              </Button>
             </Link>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section id="recursos" className="border-t border-neutral-200 bg-neutral-50">
+      <section
+        id="recursos"
+        className="border-t border-neutral-200 bg-neutral-50"
+      >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-neutral-900 mb-3">
               Recursos essenciais
             </h2>
-            <p className="text-neutral-600">Tudo que você precisa, nada que você não precisa</p>
+            <p className="text-neutral-600">
+              Tudo que você precisa, nada que você não precisa
+            </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-white border border-neutral-200 rounded-lg p-8 space-y-3">
               <div className="w-10 h-10 bg-neutral-100 rounded-md flex items-center justify-center">
                 <Calendar className="w-5 h-5 text-neutral-700" />
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900">Calendário</h3>
+              <h3 className="text-lg font-semibold text-neutral-900">
+                Calendário
+              </h3>
               <p className="text-neutral-600 text-sm leading-relaxed">
                 Visualize e gerencie agendamentos em interface intuitiva
               </p>
@@ -74,7 +94,9 @@ export default function Home() {
               <div className="w-10 h-10 bg-neutral-100 rounded-md flex items-center justify-center">
                 <Users className="w-5 h-5 text-neutral-700" />
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900">Clientes</h3>
+              <h3 className="text-lg font-semibold text-neutral-900">
+                Clientes
+              </h3>
               <p className="text-neutral-600 text-sm leading-relaxed">
                 Cadastro completo com histórico de atendimentos
               </p>
@@ -83,7 +105,9 @@ export default function Home() {
               <div className="w-10 h-10 bg-neutral-100 rounded-md flex items-center justify-center">
                 <Scissors className="w-5 h-5 text-neutral-700" />
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900">Serviços</h3>
+              <h3 className="text-lg font-semibold text-neutral-900">
+                Serviços
+              </h3>
               <p className="text-neutral-600 text-sm leading-relaxed">
                 Configure serviços, preços e duração facilmente
               </p>
@@ -92,7 +116,9 @@ export default function Home() {
               <div className="w-10 h-10 bg-neutral-100 rounded-md flex items-center justify-center">
                 <Clock className="w-5 h-5 text-neutral-700" />
               </div>
-              <h3 className="text-lg font-semibold text-neutral-900">Disponibilidade</h3>
+              <h3 className="text-lg font-semibold text-neutral-900">
+                Disponibilidade
+              </h3>
               <p className="text-neutral-600 text-sm leading-relaxed">
                 Defina horários e disponibilidade dos profissionais
               </p>
@@ -104,9 +130,7 @@ export default function Home() {
       {/* CTA Section */}
       <section className="border-t border-neutral-200 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center space-y-6">
-          <h2 className="text-3xl font-bold text-neutral-900">
-            Começe hoje
-          </h2>
+          <h2 className="text-3xl font-bold text-neutral-900">Começe hoje</h2>
           <p className="text-lg text-neutral-600">
             Crie sua conta gratuitamente. Sem cartão de crédito necessário.
           </p>
