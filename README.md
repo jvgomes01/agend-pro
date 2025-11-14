@@ -16,7 +16,9 @@ AgendPro é um MVP de SaaS para gestão de agendamentos voltado para barbearias,
 - ✅ Landing Page moderna e atrativa
 - ✅ Página de Cadastro com validação
 - ✅ Dashboard com menu lateral e estatísticas
-- ✅ Seções para Agendamentos, Clientes e Serviços
+- ✅ Página de Agendamentos (`/dashboard/agendamentos`)
+- ✅ Página de Clientes (`/dashboard/clientes`)
+- ✅ Página de Serviços (`/dashboard/servicos`)
 
 ### ✅ Backend
 

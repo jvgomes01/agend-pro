@@ -33,6 +33,17 @@ model Establishment {
   type        String    // 'barbershop', 'salon', 'manicure', etc
   openingHours Json?    // Horários de funcionamento
   imageUrl    String?
+
+  // Link público e configurações de agendamento
+  slug        String    @unique // Slug público (ex: "meu-salao")
+  bookingToken String?  @unique // Token opcional para links mais seguros
+
+  // Templates de mensagens e configurações de notificação
+  confirmationMessageTemplate String? // Mensagem de confirmação de agendamento
+  reminderMessageTemplate     String? // Mensagem de lembrete antes do atendimento
+  reengagementMessageTemplate String? // Mensagem de reengajamento (novo agendamento)
+  notificationSettings        Json?   // Configurações diversas de notificação
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
   
@@ -88,6 +99,13 @@ model Client {
   email           String?
   phone           String
   notes           String?   // Observações sobre o cliente
+
+  // Preferências de notificação do cliente
+  appointmentReminderOptIn Boolean @default(true)  // Receber lembrete antes do atendimento
+  reengagementOptIn        Boolean @default(false) // Receber lembretes para novos agendamentos
+
+  lastAppointmentAt        DateTime?
+
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   
@@ -108,6 +126,11 @@ model Appointment {
   status          String    @default("scheduled") // scheduled, completed, cancelled, no_show
   notes           String?
   totalPrice      Float
+
+  // Controle de notificações relacionadas ao agendamento
+  confirmationSentAt DateTime?
+  reminderSentAt     DateTime?
+
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
   
